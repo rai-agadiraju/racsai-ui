@@ -1,0 +1,21 @@
+services:
+  racsai-ui:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: racsai-ui
+    restart: always
+    ports:
+      - "3000:8080"
+    environment:
+      OPENAI_API_BASE_URL: "https://js143vz1-7009.use.devtunnels.ms/v1"
+    volumes:
+      - open-webui:/app/backend/data
+    healthcheck:
+      test: ["CMD", "curl", "--silent", "--fail", "http://localhost:8080/health"]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+
+volumes:
+  open-webui:
